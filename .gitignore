@@ -15,4 +15,3 @@ node_modules/
 /reports/playwright-report/
 
 # Environment secrets
-.env
