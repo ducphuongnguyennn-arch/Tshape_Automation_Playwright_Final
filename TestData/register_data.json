@@ -1,0 +1,20 @@
+{
+  "mandatoryFields": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "Male",
+    "phone": "0123456789"
+  },
+  "allFields": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "Male",
+    "phone": "0123456789",
+    "email": "john@test.com",
+    "subject": "Maths",
+    "hobby": "Sports",
+    "address": "123 Main Street",
+    "state": "NCR",
+    "city": "Delhi"
+  }
+}

@@ -124,6 +124,10 @@ export abstract class BasePage {
     await expect(locator).toContainText(expected);
   }
 
+  async assertNotContainsText(locator: Locator, expected: string): Promise<void> {
+    await expect(locator).not.toContainText(expected);
+  }
+
   async assertValue(locator: Locator, expected: string): Promise<void> {
     await expect(locator).toHaveValue(expected);
   }

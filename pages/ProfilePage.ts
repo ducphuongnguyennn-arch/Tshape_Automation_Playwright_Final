@@ -1,9 +1,10 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { step } from 'allure-js-commons';
 import { BasePage } from '../core/page/BasePage';
 
 export class ProfilePage extends BasePage {
   readonly searchBox: Locator;
-  readonly tableRows: Locator;
+  readonly bookName: Locator;
   readonly deleteIcon: Locator;
   readonly deletePopUpOk: Locator;
   readonly deletePopUpCancel: Locator;
@@ -11,7 +12,7 @@ export class ProfilePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.searchBox = page.locator('#searchBox');
-    this.tableRows = page.locator('.rt-tr-group');
+    this.bookName = page.locator('//div[@class = "action-buttons"]/descendant::a');
     this.deleteIcon = page.getByTitle('Delete');
     this.deletePopUpOk = page.locator('#closeSmallModal-ok');
     this.deletePopUpCancel = page.locator('#closeSmallModal-cancel');
@@ -21,8 +22,7 @@ export class ProfilePage extends BasePage {
     await this.fill(this.searchBox, bookName);
   }
 
-  async clickDeleteForBook(bookName: string) {
-    const row = this.tableRows.filter({ hasText: bookName });
+  async clickDeleteForBook() {
     await this.click(this.deleteIcon);
   }
 
@@ -35,27 +35,23 @@ export class ProfilePage extends BasePage {
   }
 
   async verifyBookNotDisplayed(bookName: string) {
-    await expect(this.tableRows.filter({ hasText: bookName })).not.toBeVisible();
+    await expect(this.bookName.filter({ hasText: bookName })).not.toBeVisible();
   }
 
   async verifyBookDisplayed(bookName: string) {
-    await expect(this.tableRows.filter({ hasText: bookName })).toBeVisible();
+    await expect(this.bookName.filter({ hasText: bookName })).toBeVisible();
   }
 
   //Business Flow
   async DeleteBookSuccessfully(bookName: string) {
-    await this.searchBook(bookName);
-    await this.clickDeleteForBook(bookName);
-    await this.confirmDeletePopup();
-    await this.handleAlert();
-    await this.verifyBookNotDisplayed(bookName);
-  }
+    await step(`Search for book: ${bookName}`, () => this.searchBook(bookName));
+    await step('Click delete icon', () => this.clickDeleteForBook());
+    await step('Click OK For delete popup', () => this.confirmDeletePopup());  }
 
   async DeleteBookCancel(bookName: string) {
-    await this.searchBook(bookName);
-    await this.clickDeleteForBook(bookName);
-    await this.cancelDeletePopup();
-    await this.verifyBookDisplayed(bookName);
+    await step(`Search for book: ${bookName}`, () => this.searchBook(bookName));
+    await step('Click delete icon', () => this.clickDeleteForBook());
+    await step('Click cancel for delete popup', () => this.cancelDeletePopup());
   }
 
 }

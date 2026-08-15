@@ -5,11 +5,9 @@ export class RegisterForm extends BasePage {
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
     readonly emailInput: Locator;
-    readonly maleRadioBtn: Locator;
     readonly submitBtn: Locator;
     readonly phoneInput: Locator;
     readonly subjectInput: Locator;
-    readonly sportsRadioBtn: Locator;
     readonly currentAddressInput: Locator;
     readonly selectStateInput: Locator;
     readonly selectCityInput: Locator;
@@ -20,15 +18,23 @@ export class RegisterForm extends BasePage {
         this.firstNameInput = page.locator('#firstName');
         this.lastNameInput = page.locator('#lastName');
         this.emailInput = page.locator('#userEmail');
-        this.maleRadioBtn = page.locator('//label[.="Male"]/preceding-sibling::input');
         this.phoneInput = page.locator('#userNumber');
         this.subjectInput = page.locator('#subjectsInput');
         this.submitBtn = page.locator('#submit');
-        this.sportsRadioBtn = page.locator('//label[.="Sports"]/preceding-sibling::input');
         this.currentAddressInput = page.locator('#currentAddress');
         this.selectStateInput = page.locator('//div[text()="Select State"]/following-sibling::div');
         this.selectCityInput = page.locator('//div[text()="Select City"]/following-sibling::div');
         this.modalTitle = page.locator('#example-modal-sizes-title-lg');
+    }
+
+    // Select a radio button based on the label text
+    async selectRadioByLabel(label: string): Promise<void> {
+        await this.page.locator(`//label[.="${label}"]/preceding-sibling::input`).click();
+    }
+
+    //Dynamicly get the value from the modal based on the label
+    getModalValue(label: string): Locator {
+        return this.page.locator(`//td[.="${label}"]/following-sibling::td`);
     }
 
     async navigateToRegisterPage(): Promise<void> {
@@ -42,7 +48,7 @@ export class RegisterForm extends BasePage {
     async fillForm(data: {
         firstName: string;
         lastName: string;
-        gender: 'Male' | 'Female' | 'Other';
+        gender: string;
         phone: string;
         email?: string;
         subject?: string;
@@ -53,7 +59,7 @@ export class RegisterForm extends BasePage {
     }): Promise<void> {
         await this.fill(this.firstNameInput, data.firstName);
         await this.fill(this.lastNameInput, data.lastName);
-        await this.click(this.maleRadioBtn);
+        await this.selectRadioByLabel(data.gender);
         await this.fill(this.phoneInput, data.phone);
 
         if (data.email) await this.fill(this.emailInput, data.email);
@@ -61,7 +67,7 @@ export class RegisterForm extends BasePage {
             await this.fill(this.subjectInput, data.subject);
             await this.page.getByText(data.subject, { exact: true }).click();
         }
-        if (data.hobby) await this.click(this.sportsRadioBtn);
+        if (data.hobby) await this.selectRadioByLabel(data.hobby);
         if (data.address) await this.fill(this.currentAddressInput, data.address);
         if (data.state) {
             await this.click(this.selectStateInput);
@@ -73,15 +79,8 @@ export class RegisterForm extends BasePage {
         }
     }
 
-    async assertFormLoaded(): Promise<void> {
-        await this.assertVisible(this.submitBtn);
-    }
-
     async assertModalTitle(expected: string): Promise<void> {
         await this.assertText(this.modalTitle, expected);
     }
 
-    getModalValue(label: string): Locator {
-        return this.page.locator(`td:text-is("${label}") + td`);
-    }
 }

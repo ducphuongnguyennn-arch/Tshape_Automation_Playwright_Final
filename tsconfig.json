@@ -6,7 +6,8 @@
     "ignoreDeprecations": "6.0",
     "esModuleInterop": true,
     "strict": true,
-    "types": ["@playwright/test"]
+    "resolveJsonModule": true,
+    "types": ["@playwright/test", "node"]
   },
   "include": ["./**/*.ts"],
   "exclude": ["node_modules"]

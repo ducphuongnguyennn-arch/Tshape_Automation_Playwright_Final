@@ -6,13 +6,22 @@
   "directories": {
     "test": "tests"
   },
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@types/node": "^26.1.2"
-  }
+  "scripts": {
+    "archive:allure-results": "node -e \"const fs=require('fs'),path=require('path');const src='reports/allure-results';const dest=path.join('reports/allure-results-archive', new Date().toISOString().replace(/[:.]/g,'-'));if(fs.existsSync(src)&&fs.readdirSync(src).length){fs.mkdirSync(dest,{recursive:true});for(const f of fs.readdirSync(src))fs.renameSync(path.join(src,f),path.join(dest,f));}\"",
+    "report:allure:html": "allure generate ./reports/allure-results -o ./reports/allure-html-report --clean",
+    "report:html": "npx playwright show-report"
+  },
+"keywords": [],
+"author": "",
+"license": "ISC",
+"type": "commonjs",
+"devDependencies": {
+  "@playwright/test": "^1.62.1",
+  "@types/node": "^26.2.0",
+  "allure-commandline": "^2.43.0",
+  "allure-playwright": "^3.10.2"
+},
+"dependencies": {
+  "dotenv": "^17.4.2"
+}
 }

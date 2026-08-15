@@ -32,6 +32,20 @@ export class BaseAPI {
         });
     }
 
+    protected async put(path: string, body?: unknown, token?: string) {
+        return await this.request.put(path, {
+            headers: this.authHeaders(token),
+            data: body ?? undefined
+        });
+    }
+
+    protected async patch(path: string, body?: unknown, token?: string) {
+        return await this.request.patch(path, {
+            headers: this.authHeaders(token),
+            data: body ?? undefined
+        });
+    }
+
     protected async delete(path: string, body?: unknown, token?: string) {
         return await this.request.delete(path, {
             headers: this.authHeaders(token),

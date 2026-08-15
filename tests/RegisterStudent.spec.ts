@@ -1,4 +1,5 @@
 import { test, expect } from '../fixture/ui';
+import registerData from '../TestData/register_data.json';
 
 test.describe('Register Student', () => {
     test.beforeEach(async ({ registerForm, page }) => {
@@ -7,42 +8,28 @@ test.describe('Register Student', () => {
     });
 
     test('submit form with mandatory fields only', async ({ registerForm }) => {
-        await registerForm.fillForm({
-            firstName: 'John',
-            lastName: 'Doe',
-            gender: 'Male',
-            phone: '0123456789',
-        });
+        const data = registerData.mandatoryFields;
+        await registerForm.fillForm(data);
         await registerForm.clickSubmitForm();
         await registerForm.assertModalTitle('Thanks for submitting the form');
-        await expect(registerForm.getModalValue('Student Name')).toHaveText('John Doe');
-        await expect(registerForm.getModalValue('Gender')).toHaveText('Male');
-        await expect(registerForm.getModalValue('Mobile')).toHaveText('0123456789');
+        await expect(registerForm.getModalValue('Student Name')).toHaveText(`${data.firstName} ${data.lastName}`);
+        await expect(registerForm.getModalValue('Gender')).toHaveText(data.gender);
+        await expect(registerForm.getModalValue('Mobile')).toHaveText(data.phone);
     });
 
     test('submit form with all fields', async ({ registerForm }) => {
-        await registerForm.fillForm({
-            firstName: 'John',
-            lastName: 'Doe',
-            gender: 'Male',
-            phone: '0123456789',
-            subject: 'Maths',
-            email: 'john@test.com',
-            hobby: 'Sports',
-            address: '123 Main Street',
-            state: 'NCR',
-            city: 'Delhi',
-        });
+        const data = registerData.allFields;
+        await registerForm.fillForm(data);
         await registerForm.clickSubmitForm();
         await registerForm.assertModalTitle('Thanks for submitting the form');
-        await expect(registerForm.getModalValue('Student Name')).toHaveText('John Doe');
-        await expect(registerForm.getModalValue('Student Email')).toHaveText('john@test.com');
-        await expect(registerForm.getModalValue('Gender')).toHaveText('Male');
-        await expect(registerForm.getModalValue('Mobile')).toHaveText('0123456789');
-        await expect(registerForm.getModalValue('Subjects')).toHaveText('Maths');
-        await expect(registerForm.getModalValue('Hobbies')).toHaveText('Sports');
-        await expect(registerForm.getModalValue('Address')).toHaveText('123 Main Street');
-        await expect(registerForm.getModalValue('State and City')).toHaveText('NCR Delhi');
+        await expect(registerForm.getModalValue('Student Name')).toHaveText(`${data.firstName} ${data.lastName}`);
+        await expect(registerForm.getModalValue('Student Email')).toHaveText(data.email);
+        await expect(registerForm.getModalValue('Gender')).toHaveText(data.gender);
+        await expect(registerForm.getModalValue('Mobile')).toHaveText(data.phone);
+        await expect(registerForm.getModalValue('Subjects')).toHaveText(data.subject);
+        await expect(registerForm.getModalValue('Hobbies')).toHaveText(data.hobby);
+        await expect(registerForm.getModalValue('Address')).toHaveText(data.address);
+        await expect(registerForm.getModalValue('State and City')).toHaveText(`${data.state} ${data.city}`);
     });
 });
 
