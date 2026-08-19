@@ -8,6 +8,7 @@ export class ReportUtils {
         const beforeScreenshot = await page.screenshot();
         await allure.attachment(title, beforeScreenshot, ContentType.JPEG);
         await fn();
+        await page.waitForLoadState();
         const afterScreenshot = await page.screenshot();
         await allure.attachment(title, afterScreenshot, ContentType.JPEG);
     }
