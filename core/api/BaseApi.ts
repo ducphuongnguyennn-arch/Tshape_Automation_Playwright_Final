@@ -1,4 +1,7 @@
 import { APIRequestContext } from "@playwright/test";
+import { ReadStream } from "fs";
+
+export type MultipartValue = string | number | boolean | ReadStream | { name: string; mimeType: string; buffer: Buffer };
 
 export class BaseAPI {
     protected request: APIRequestContext;
@@ -43,6 +46,18 @@ export class BaseAPI {
         return await this.request.patch(path, {
             headers: this.authHeaders(token),
             data: body ?? undefined
+        });
+    }
+
+    protected async patchMultipart(path: string, multipart: Record<string, MultipartValue>, token?: string) {
+        const headers: Record<string, string> = {}; const formData = new FormData();
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
+        return await this.request.patch(path, {
+            headers,
+            multipart,
         });
     }
 

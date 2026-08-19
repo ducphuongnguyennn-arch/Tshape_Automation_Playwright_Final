@@ -1,0 +1,68 @@
+[
+  {
+    "caseName": "receiverName - max length",
+    "receiverName": "NguyenVanANguyenVanANguyenVanANguyenVanANguyenVanANguyenVanANguyenVanANguyenVanANguyenVanANguyenVanA",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverName - min length",
+    "receiverName": "A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverName - special character and space",
+    "receiverName": "Nguyễn Văn A-B's #123 !@#",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverName - uppercase and lowercase",
+    "receiverName": "nguyen van a NGUYEN VAN A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverPhone - max length",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "0912345678901234",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverPhone - min length",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "091234567",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverPhone - special character and space",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "091-234 5678",
+    "receiverAddress": "123 Duong ABC, Phuong XYZ, TP. HCM"
+  },
+  {
+    "caseName": "receiverAddress - max length",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012"
+  },
+  {
+    "caseName": "receiverAddress - min length",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "1"
+  },
+  {
+    "caseName": "receiverAddress - special character and space",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123/45 Đường ABC, Phường X&Y - Q.1, TP.HCM!"
+  },
+  {
+    "caseName": "receiverAddress - uppercase and lowercase",
+    "receiverName": "Nguyen Van A",
+    "receiverPhone": "0912345678",
+    "receiverAddress": "123 duong abc, PHUONG XYZ, tp.hcm"
+  }
+]

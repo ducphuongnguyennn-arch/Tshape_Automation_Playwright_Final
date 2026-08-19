@@ -1,10 +1,10 @@
 import { test as base } from '@playwright/test';
 import { AccountHelper } from '../apis/AccountHelper';
-import { BookHelper } from '../apis/BookHelper';
+import { UpdateUser } from '../apis/UpdateUser';
 
 type APIFixtures = {
   accountHelper: AccountHelper;
-  bookHelper: BookHelper;
+  updateUser: UpdateUser;
 };
 
 export { expect } from '@playwright/test';
@@ -15,8 +15,8 @@ export const test = base.extend<APIFixtures>({
     await use(accountHelper);
   },
 
-  bookHelper: async ({ request }, use) => {
-    const bookHelper = new BookHelper(request);
-    await use(bookHelper);
+  updateUser: async ({ request }, use) => {
+    const updateUser = new UpdateUser(request);
+    await use(updateUser  );
   },
 });
